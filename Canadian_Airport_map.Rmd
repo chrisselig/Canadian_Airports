@@ -1,0 +1,24 @@
+---
+title: "Canadian Airports"
+author: "Chris Selig"
+date: "February 19, 2017"
+output: html_document
+---
+
+```{r include = FALSE}
+require(leaflet); require(openxlsx)
+filepath <- "D:/Personal/Coursea/9.Developing Data Products/Assignment1/airport_lat_long.xlsx"
+df <- read.xlsx(filepath, sheet = 1)
+df$Longitude <- as.numeric(df$Longitude)
+df$Latitude <- as.numeric(df$Latitude)
+```
+
+See a map of the open Canadian airports below.
+
+```{r echo=FALSE}
+map <- leaflet(data = df) %>%
+    addTiles() %>%
+    addCircleMarkers(popup = ~as.character(IATA))
+map
+
+```
